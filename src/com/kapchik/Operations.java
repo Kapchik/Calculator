@@ -1,4 +1,4 @@
-package com.company;
+package com.kapchik;
 
 public enum Operations {
     MULTIPLY("*"),

@@ -1,4 +1,4 @@
-package com.company;
+package com.kapchik;
 
 import java.util.List;
 
