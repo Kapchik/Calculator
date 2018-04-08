@@ -2,11 +2,54 @@ package com.company;
 
 import java.util.*;
 
-//можно еще перейти от int к дробным, добавить скобки и обработать exception (del 0), добавить ввод значений руками,
-//прописать в явном виде equals, сравнивать через него
-//но во втором уже))) приближении, я считаю, готово
+//хочу еще добавить скобки и обработать exception (del 0), добавить ввод значений руками - как вторую реализацию Numbers,
+//но в третьем уже))) приближении, я считаю, готово
 
 public class Calculator {
+
+
+    public static final int MAX_EXPRESSION_SIZE = 10;
+
+    public static void main(String[] args) {
+
+        List<RandNumbers> array = new ArrayList();
+
+        for (int i = 0; i <= MAX_EXPRESSION_SIZE; i++) {
+            if (i == MAX_EXPRESSION_SIZE) {
+                array.add(new RandNumbers(true));
+            } else {
+                array.add(new RandNumbers(false));
+            }
+        }
+
+        for (RandNumbers rn : array) {
+            System.out.print(rn.getValue() + " ");
+            System.out.print(rn.getOperation() + " ");
+        }
+
+        while (array.size() > 1) {
+            int i = 0;
+
+            if (array.get(i).getOperation().equals(Operations.MULTIPLY.getOperation())) {
+                array.get(i).multiply(i, array);
+            } else if (array.get(i).getOperation().equals(Operations.DIVIDE.getOperation())) {
+                array.get(i).divide(i, array);
+            } else if (array.get(i + 1).getOperation().equals(Operations.MULTIPLY.getOperation())) {
+                array.get(i + 1).multiply(i + 1, array);
+            } else if (array.get(i + 1).getOperation().equals(Operations.DIVIDE.getOperation())) {
+                array.get(i + 1).divide(i + 1, array);
+            } else if (array.get(i).getOperation().equals(Operations.ADD.getOperation())) {
+                array.get(i).add(i, array);
+            } else if (array.get(i).getOperation().equals(Operations.SUBSTRACT.getOperation())) {
+                array.get(i).substract(i, array);
+            }
+        }
+
+        System.out.println("= " + array.get(0).getValue());
+
+    }
+
+ /* //было
 
     private static final int DEFUALT_VALUE = 25;
     private static final int MAX_VALUE = 100;
@@ -56,7 +99,7 @@ public class Calculator {
         for (int i = 0; i < vaArray.size(); i++) System.out.print(vaArray.get(i) + " ");
 
         // TODO: 1.4 опять же в типе переменной стоит использовать интерфейс (см 1.0)
-        MathOperations math = new MathOperations();
+        RandNumbers math = new RandNumbers();
 
         // TODO: 1.5 вот эти циклы ниже просто жесть конкретная
         // 1) Если ты закладываешься на порядок элементов в enum,
@@ -69,11 +112,11 @@ public class Calculator {
 
         // TODO: 1.6 почитай как работают люди с enum'ми, в интернете много примеров, будет гораздо понятнее
         // И код твой станет читабельнее везде, где есть enum. Enum - очень крутая вещь
-        for (int i = 0; i < Actions.values().length; i++) {
+        for (int i = 0; i < Operations.values().length; i++) {
             for (int j = 1; j < vaArray.size(); j += 2) {
                 // TODO: 1.7 (ВАЖНО) так сравнивать почти всегда нельзя!
                 // Посмотри как сравнивать строки или любые другие объекты в java.
-                if (vaArray.get(j) == Actions.values()[i].getAct()) {
+                if (vaArray.get(j) == Operations.values()[i].getOperation()) {
                     math.execute(j, vaArray);
                 }
             }
@@ -82,5 +125,5 @@ public class Calculator {
         System.out.print("= " + vaArray.get(0));
 
     }
-
+*/
 }

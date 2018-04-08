@@ -1,8 +1,21 @@
 package com.company;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public interface Executions {
+public interface Numbers {
+
+    double value = 0;
+    String operation = null;
+
+    void multiply(int i, List<RandNumbers> array);
+
+    void divide(int i, List<RandNumbers> array);
+
+    void add(int i, List<RandNumbers> array);
+
+    void substract(int i, List<RandNumbers> array);
+
+    /*  // было
 
     // TODO: 1.9 опять же невежливо принимать тип по классу в метод если нужен тебе лишь интерфейс
     // Тут легко зайдет List
@@ -12,6 +25,8 @@ public interface Executions {
 
     // TODO: 1.11 опять же общая концепция хромает, этот список неизвестно чего пронизывает все приложение
     // как с этим работать?
-    void execute(int i, ArrayList<String> array);
+
+     void execute(int i, ArrayList<String> array);
+*/
 
 }
