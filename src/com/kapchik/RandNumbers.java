@@ -50,7 +50,7 @@ public class RandNumbers implements Numbers {
         this.operation = operation;
     }
 
-    @Override
+    @Override 
     public void multiply(int i, List<RandNumbers> array) {
         RandNumbers randnumber = new RandNumbers();
         randnumber.setValue(array.get(i).getValue() * array.get(i + 1).getValue());
