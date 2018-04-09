@@ -7,6 +7,8 @@ public enum Operations {
     SUBSTRACT("-"),
     NOTHING("");
 
+    // TODO: 2.5 у java разработчиков принято писать первым делом идентификатор доступа
+    // а потом все остальное, т.е. сначала private потом final
     final private String operation;
 
     Operations(String operation) {
@@ -16,17 +18,5 @@ public enum Operations {
     public String getOperation() {
         return operation;
     }
- /*   // TODO: 1.8 используй ключевое слово final всегда, когда у тебя не меняется поле в классе
-    // (В enum это правило работает всегда)
-    // можешь почитать для чего final писать над неизменяемыми полями
-    final private String operation;
 
-    Operations(String operation) {
-        this.operation = operation;
-    }
-
-    public String getOperation() {
-        return operation;
-    }
-*/
 }

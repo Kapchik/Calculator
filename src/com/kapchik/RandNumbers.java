@@ -2,9 +2,10 @@ package com.kapchik;
 
 //первая реализация интерфейса
 
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 
-
+// TODO: 2.9 опять же множественное число (см. 2.6)
 public class RandNumbers implements Numbers {
 
     private double value;
@@ -17,8 +18,15 @@ public class RandNumbers implements Numbers {
     }
 
     public RandNumbers(boolean lastValue) {
+        // TODO: 2.10 проверка boolean не требует подобного сравнения, ведь это и так boolean
+        // я имею ввиду if (lastValue == false) и if (!lastValue) одно и то же, только второе читается лучше
         if (lastValue == false) {
             int i = 0;
+
+            // TODO: 2.11 постарайся избавится пока вообще от слова random,
+            // оно очень сильно усложняет твою программу, ты акцентируешь внимание не на том, что нужно
+            // P.S. каждый раз создавать новый объект random неочень хорошо в твоей ситуации
+            // будет интересно посмотри в сторону ThreadLocalRandom.current()
             int randAction = new Random().nextInt(4);
 
             for (Operations act : Operations.values()) {
@@ -52,6 +60,16 @@ public class RandNumbers implements Numbers {
 
     @Override 
     public void multiply(int i, List<RandNumbers> array) {
+        // TODO: 2.12 так работать с входным параметром списка просто нельзя
+        // (касается всех @Override методов класса)
+        // 1) Сюда тебе может придти любая реализация интерфейса List,
+        //    есть реализации, в которых вызов методов set(), add(), remove() etc. кидает UnsupportedOperationException
+        // 2) Даже если определить тип списка как скажем ArrayList, все равно будет плохо.
+        //    пользователь твоего класса никогда не узнает и не догадается что его список
+        //    будет измененен внутри твоего класса пока не зайдет и не почитает код.
+        //    По сути ты меняешь входные данные без видимых на то причин - плохой подход.
+        //    При таком подходе очень сложно отлаживать и сопровождать код, возникает куча всяких side-эффектов,
+        //    от которых мозги просто взрываются у всех, кроме автора. Да и у автора тоже спустя уже пару недель
         RandNumbers randnumber = new RandNumbers();
         randnumber.setValue(array.get(i).getValue() * array.get(i + 1).getValue());
         randnumber.setOperation(array.get(i + 1).getOperation());
@@ -86,39 +104,4 @@ public class RandNumbers implements Numbers {
         array.remove(i + 1);
     }
 
-
-/*  //было
-
-    // TODO: 1.12 писать аннотацию @Override над переопределяемыми или реализуемыми методами нужно!
-    @Override
-    public void execute(int j, ArrayList<String> array) {
-
-        // TODO: 1.13 опять же так сравнивать строки нельзя! (см. 1.7)
-        if (array.get(j) == "*") {
-            array.set(j - 1, String.valueOf(Integer.parseInt(array.get(j - 1)) * Integer.parseInt(array.get(j + 1))));
-            array.remove(j);
-            array.remove(j);
-
-//            System.out.println("*" + array);
-        } else if (array.get(j) == "/") {
-            array.set(j - 1, String.valueOf(Integer.parseInt(array.get(j - 1)) / Integer.parseInt(array.get(j + 1))));
-            array.remove(j);
-            array.remove(j);
-
-//            System.out.println("/" + array);
-        } else if (array.get(j) == "+") {
-            array.set(j - 1, String.valueOf(Integer.parseInt(array.get(j - 1)) + Integer.parseInt(array.get(j + 1))));
-            array.remove(j);
-            array.remove(j);
-
-//            System.out.println("+" + array);
-        } else {
-            array.set(j - 1, String.valueOf(Integer.parseInt(array.get(j - 1)) - Integer.parseInt(array.get(j + 1))));
-            array.remove(j);
-            array.remove(j);
-
-//            System.out.println("-" + array);
-        }
-
-    }*/
 }
