@@ -30,11 +30,20 @@ public class Calculator {
 
     public static void main(String[] args) {
         Calculator calculator = new Calculator();
-        System.out.println(calculator.calculate("5+5"));
-        System.out.println(calculator.calculate("222 + 54"));
-        System.out.println(calculator.calculate("222 / 54"));
-        System.out.println(calculator.calculate("2222   - 212354"));
-        System.out.println(calculator.calculate("3 * 4"));
+
+        check(calculator.calculate("5+5"), 10);
+        check(calculator.calculate("3 * 4"), 12);
+        check(calculator.calculate("12 / 4"), 3);
+        check(calculator.calculate("12 - 4"), 8);
+        check(calculator.calculate("12 - 40"), -28);
+
+        System.out.println("All simple tests completed");
+    }
+
+    private static void check(double result, double expected) {
+        if (result != expected) {
+            throw new RuntimeException("Result " + result + ", but expected " + expected);
+        }
     }
 
 }

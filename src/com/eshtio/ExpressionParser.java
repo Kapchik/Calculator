@@ -1,8 +1,9 @@
 package com.eshtio;
 
-import java.util.StringJoiner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.eshtio.CommonOperation.*;
 
 public class ExpressionParser {
 
@@ -14,8 +15,8 @@ public class ExpressionParser {
      * Regex выражение для разбора примеров с целыми числами
      */
     private static final Pattern INT_EXPRESSION_PARSE_PATTERN = Pattern.compile(
-            "(?<" + LEFT_GROUP + ">\\d*)\\s*(?<" + OPERATION_GROUP + ">["
-                    + operationsRegex() + "])\\s*(?<" + RIGHT_GROUP + ">\\d*)");
+            "(?<" + LEFT_GROUP + ">\\d+)\\s*(?<" + OPERATION_GROUP + ">[" +
+                    commonOperationsRegex() + "])\\s*(?<" + RIGHT_GROUP + ">\\d+)");
 
     public IntExpression parseToIntExpression(String stringExpression) {
         Matcher matcher = INT_EXPRESSION_PARSE_PATTERN.matcher(stringExpression);
@@ -29,12 +30,8 @@ public class ExpressionParser {
         throw new IllegalStateException("String expression can't be parsed: " + stringExpression);
     }
 
-    private static String operationsRegex() {
-        StringJoiner joiner = new StringJoiner("|");
-        for (CommonOperation operation : CommonOperation.values()) {
-            joiner.add(operation.getSymbol());
-        }
-        return joiner.toString();
+    private static String commonOperationsRegex() {
+        return ADD.getSymbol() + "\\" + SUBSTRACT.getSymbol() + MULTIPLY.getSymbol() + DIVIDE.getSymbol();
     }
 
 }
